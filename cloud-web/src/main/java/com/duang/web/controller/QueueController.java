@@ -1,6 +1,7 @@
 package com.duang.web.controller;
 
 import com.duang.cloudcommons.entity.User;
+import com.duang.web.feign.HandlerFeign;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -24,6 +25,8 @@ public class QueueController {
 
     @Resource
     private RestTemplate restTemplate;
+    @Resource
+    private HandlerFeign handlerFeign;
 
     @GetMapping("/get")
     @ResponseBody
@@ -31,8 +34,9 @@ public class QueueController {
         String url = "cloud-handler";
 
       //  log.info("=====从nacos中获取到的微服务地址:{}",url);
-        User forObject = restTemplate.getForObject("http://" + url+"/queue/get" + "?id=" + id, User.class);
-        log.info("查询到的数据:{}",forObject);
-        return forObject;
+      //  User forObject = restTemplate.getForObject("http://" + url+"/queue/get" + "?id=" + id, User.class);
+        User user = handlerFeign.get(id);
+        log.info("查询到的数据:{}",user);
+        return user;
     }
 }
