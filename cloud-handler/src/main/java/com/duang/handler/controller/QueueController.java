@@ -2,9 +2,7 @@ package com.duang.handler.controller;
 
 import com.duang.cloudcommons.entity.User;
 import com.duang.handler.service.QueueService;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
+@Slf4j
 @RequestMapping("queue")
 public class QueueController {
 

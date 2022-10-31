@@ -1,0 +1,25 @@
+#spring.datasource.url= jdbc:mysql://124.223.2.193:3306/my-queue?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useCompression=true&zeroDateTimeBehavior=CONVERT_TO_NULL
+#spring.datasource.username= root
+#spring.datasource.password= 123456
+#spring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver
+spring:
+  application:
+    name: cloud-handler
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 124.223.2.193:8848
+  datasource:
+    url: jdbc:mysql://124.223.2.193:3306/my_queue?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useCompression=true&zeroDateTimeBehavior=CONVERT_TO_NULL
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+mybatis:
+  type-aliases-package: com.duang.cloudcommons.entity
+  mapper-locations: classpath:mapper/*.xml
+
+
+server:
+  port: 8070
