@@ -9,12 +9,16 @@ spring:
     nacos:
       discovery:
         server-addr: 124.223.2.193:8848
+
   datasource:
     url: jdbc:mysql://124.223.2.193:3306/my_queue?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useCompression=true&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+cloud-handler: # 调用的提供者的名称
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
 mybatis:
   type-aliases-package: com.duang.cloudcommons.entity

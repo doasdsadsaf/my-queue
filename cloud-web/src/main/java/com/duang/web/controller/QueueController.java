@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/web")
@@ -26,9 +28,9 @@ public class QueueController {
     @GetMapping("/get")
     @ResponseBody
     public User get(Long id){
-        ServiceInstance serviceInstance = discoveryClient.getInstances("cloud-handler").get(0);
-        String url = serviceInstance.getHost() + ":" + serviceInstance.getPort();
-        log.info("=====从nacos中获取到的微服务地址:{}",url);
+        String url = "cloud-handler";
+
+      //  log.info("=====从nacos中获取到的微服务地址:{}",url);
         User forObject = restTemplate.getForObject("http://" + url+"/queue/get" + "?id=" + id, User.class);
         log.info("查询到的数据:{}",forObject);
         return forObject;
