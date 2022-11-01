@@ -22,6 +22,12 @@ spring:
 #            - id=1,2
           filters: # 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改
             - StripPrefix=1 # 转发之前去掉1层路径
+  zipkin:
+    base-url: 124.223.2.193:9411/ #zipkin server的请求地址
+    discoveryClientEnabled: false #让nacos把它当成一个URL，而不要当做服务名
+  sleuth:
+    sampler:
+    probability: 1.0 #采样的百分比
 
 
 

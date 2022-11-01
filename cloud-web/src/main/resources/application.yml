@@ -3,6 +3,12 @@
 #spring.datasource.password= 123456
 #spring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver
 spring:
+  zipkin:
+    base-url: 124.223.2.193:9411/ #zipkin server的请求地址
+    discoveryClientEnabled: false #让nacos把它当成一个URL，而不要当做服务名
+  sleuth:
+    sampler:
+    probability: 1.0 #采样的百分比
   application:
     name: cloud-web
   cloud:
@@ -31,4 +37,5 @@ mybatis:
 
 server:
   port: 8080
+
 
