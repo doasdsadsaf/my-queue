@@ -28,6 +28,7 @@
         <module>cloud-handler</module>
         <module>cloud-commons</module>
         <module>cloud-web</module>
+        <module>cloud-gateway</module>
     </modules>
     <dependencyManagement>
         <dependencies>

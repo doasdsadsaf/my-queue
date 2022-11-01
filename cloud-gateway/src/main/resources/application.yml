@@ -1,0 +1,27 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 124.223.2.193:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 让gateway 可以发现nacos中的服务
+      routes: # 路由数组[路由 就是指定当请求满足什么条件的时候转到哪个微服务]
+        - id: web_routes # 当前路由的标识, 要求唯一
+          uri: lb://cloud-web # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
+          order: 1 # 路由的优先级,数字越小级别越高
+          predicates: # 断言(就是路由转发要满足的条件) 断言可以有多种方式,基于请求,时间,ip都行,也可以自定义
+            - Path=/cloudWeb/** # 当请求路径满足Path指定的规则时,才进行路由转发
+            - Before=2019-11-28T00:00:00.000+08:00 #限制请求时间在2019-11-28之前
+            - Method=POST #限制请求方式为POST
+            - id=1,2
+          filters: # 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改
+            - StripPrefix=1 # 转发之前去掉1层路径
+
+
+
