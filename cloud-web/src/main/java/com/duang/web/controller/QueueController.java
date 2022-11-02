@@ -1,19 +1,16 @@
 package com.duang.web.controller;
 
 import com.duang.cloudcommons.entity.User;
+import com.duang.web.RabbitMQConfig;
 import com.duang.web.feign.HandlerFeign;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/web")
@@ -28,6 +25,10 @@ public class QueueController {
     @Resource
     private HandlerFeign handlerFeign;
 
+    //注入RabbitMQ的模板
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
     @GetMapping("/get")
     @ResponseBody
     public User get(Long id){
@@ -38,5 +39,21 @@ public class QueueController {
         User user = handlerFeign.get(id);
         log.info("查询到的数据:{}",user);
         return user;
+    }
+
+
+
+    @GetMapping("sendQueue")
+    public String  sendQueue(@RequestParam("news")String news){
+
+        /**
+         * 发送消息
+         * 参数一：交换机名称
+         * 参数二：路由key
+         * 参数三：发送的消息
+         */
+        rabbitTemplate.convertAndSend(RabbitMQConfig.ITEM_TOPIC_EXCHANGE ,"item.queue" ,news);
+        // 返回消息
+        return "发送消息成功！";
     }
 }

@@ -18,6 +18,12 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  rabbitmq:
+    host: 124.223.2.193
+    port: 5672
+    virtual-host: /
+    username: admin
+    password: admin
 
   zipkin:
     base-url: 124.223.2.193:9411/ #zipkin server的请求地址
@@ -34,3 +40,6 @@ mybatis:
 
 server:
   port: 8070
+
+rocketmq:
+name-server: 124.223.2.193:9876

@@ -25,6 +25,13 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  rabbitmq:
+    host: 124.223.2.193
+    port: 5672
+    virtual-host: /
+    username: admin
+    password: admin
+
 
 cloud-handler: # 调用的提供者的名称
   ribbon:
