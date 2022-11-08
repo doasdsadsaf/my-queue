@@ -54,7 +54,7 @@ public class GatewayConfiguration {
         rules.add(
                 new GatewayFlowRule("web_routes") //资源名称,对应路由id
                         .setCount(1) // 限流阈值
-                        .setIntervalSec(10) // 统计时间窗口，单位是秒，默认是 1 秒
+                        .setIntervalSec(1) // 统计时间窗口，单位是秒，默认是 1 秒
         );
         GatewayRuleManager.loadRules(rules);
     }

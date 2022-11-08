@@ -1,12 +1,15 @@
 server:
   port: 7000
 spring:
+  profiles:
+    active: dev
   application:
     name: cloud-gateway
   cloud:
     nacos:
       discovery:
         server-addr: 124.223.2.193:8848
+        namespace: 5c2e414e-cdd2-4104-85d7-ad191b431fb8
     gateway:
       discovery:
         locator:

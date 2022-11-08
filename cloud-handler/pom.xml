@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.duang</groupId>
-    <artifactId>handler</artifactId>
+    <artifactId>cloud-handler</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cloud-handler</name>
     <description>cloud-handler</description>
@@ -30,6 +30,12 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- nacos 配置文件-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
         <!--fegin组件-->
@@ -79,11 +85,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${alibaba.fastjson}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>fastjson</artifactId>-->
+<!--            <version>${alibaba.fastjson}</version>-->
+<!--        </dependency>-->
 
         <!-- rabbitmq -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp -->
@@ -92,7 +98,6 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
             <version>2.3.9.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>com.duang</groupId>
             <artifactId>cloud-commons</artifactId>

@@ -3,12 +3,17 @@
 #spring.datasource.password= 123456
 #spring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver
 spring:
+  profiles:
+    active: dev
   application:
     name: cloud-handler
   cloud:
     nacos:
       discovery:
         server-addr: 124.223.2.193:8848
+      config:
+        server-addr: 124.223.2.193:8848
+        file-extension: yaml # 配置文件格式
     sentinel:
       transport:
         port:
@@ -40,6 +45,3 @@ mybatis:
 
 server:
   port: 8070
-
-rocketmq:
-name-server: 124.223.2.193:9876

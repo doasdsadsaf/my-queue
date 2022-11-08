@@ -1,4 +1,4 @@
-package com.duang.web;
+package com.duang.web.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Qualifier;

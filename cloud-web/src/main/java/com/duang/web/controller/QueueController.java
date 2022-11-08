@@ -1,33 +1,50 @@
 package com.duang.web.controller;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
+import com.duang.cloudcommons.entity.MessageResponse;
+import com.duang.cloudcommons.entity.Order;
 import com.duang.cloudcommons.entity.User;
-import com.duang.web.RabbitMQConfig;
+import com.duang.web.config.RabbitMQConfig;
 import com.duang.web.feign.HandlerFeign;
+import com.duang.web.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/web")
 @Slf4j
+@RefreshScope // 读取动态配置文件
 public class QueueController {
 
-    @Resource
-    private DiscoveryClient discoveryClient;
-
-    @Resource
-    private RestTemplate restTemplate;
     @Resource
     private HandlerFeign handlerFeign;
 
     //注入RabbitMQ的模板
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Value("${server.datasource.url}")
+    private String name;
+
+    @Value("${config_cloud}")
+    private String cloud;
+
+
+    @Value("${config-web}")
+    private String configWeb;
+
+    @Autowired
+    private ConfigurableApplicationContext applicationContext;
 
     @GetMapping("/get")
     @ResponseBody
@@ -56,4 +73,25 @@ public class QueueController {
         // 返回消息
         return "发送消息成功！";
     }
+
+    @GetMapping("getConfig")
+    public String getConfig(){
+        log.info("configWeb:{}",configWeb);
+        log.info("cloud:{}",cloud);
+
+        return configWeb ;
+    }
+
+    /**
+     * 验证分布式事务
+     */
+    public MessageResponse<User> save(User user){
+        Order order = new Order();
+        orderService.save(order);
+        handlerFeign.save(user);
+        return MessageResponse.success();
+    }
+
+
+
 }

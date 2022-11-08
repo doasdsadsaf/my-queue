@@ -3,6 +3,8 @@
 #spring.datasource.password= 123456
 #spring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver
 spring:
+  profiles:
+    active: dev
   zipkin:
     base-url: 124.223.2.193:9411/ #zipkin server的请求地址
     discoveryClientEnabled: false #让nacos把它当成一个URL，而不要当做服务名
@@ -15,11 +17,17 @@ spring:
     nacos:
       discovery:
         server-addr: 124.223.2.193:8848
+        namespace: 5c2e414e-cdd2-4104-85d7-ad191b431fb8
+      config:
+        server-addr: 124.223.2.193:8848
+        file-extension: yaml # 配置文件格式
+        namespace: 5c2e414e-cdd2-4104-85d7-ad191b431fb8
+        shared-dataids: all-cloud.yaml # 配置要引入的配置
+        refreshable-dataids: all-cloud.yaml # 配置要实现动态配置刷新的配置
     sentinel:
       transport:
         port:
         dashboard: 124.223.2.193:8858
-
   datasource:
     url: jdbc:mysql://124.223.2.193:3306/my_queue?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useCompression=true&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: root
@@ -42,7 +50,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
 
 
-server:
-  port: 8080
+#server:
+#  port: 8085
 
 

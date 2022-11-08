@@ -2,6 +2,7 @@ package com.duang.web.feign;
 
 import com.duang.cloudcommons.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,4 +15,7 @@ public interface HandlerFeign {
     @ResponseBody
     User get(@RequestParam("id") Long id);
 
+    @RequestMapping("/save")
+    @ResponseBody
+    User save(@RequestBody User user);
 }
