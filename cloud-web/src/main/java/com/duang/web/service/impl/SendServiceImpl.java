@@ -25,6 +25,12 @@ public class SendServiceImpl implements SendService {
     @Autowired
     private ProcessController processController;
 
+    /**
+     * 通过 @Bean注解,项目启动时就按发送消息类型和撤销消息类型 把对应的实现子类注入到Map<Stirng,List>里去,再循环这个list
+     * 按顺序去执行他的每一个方法,这就是责任链
+     * @param sendRequest
+     * @return
+     */
     @Override
     @OperationLog(bizType = "SendService#send", bizId = "#sendRequest.messageTemplateId", msg = "#sendRequest")
     public SendResponse send(SendRequest sendRequest) {
@@ -33,7 +39,7 @@ public class SendServiceImpl implements SendService {
                 .messageTemplateId(sendRequest.getMessageTemplateId())
                 .messageParamList(Collections.singletonList(sendRequest.getMessageParam()))
                 .build();
-        //
+        // 把消息参数放到责任链上下文里
         ProcessContext context = ProcessContext.builder()
                 .code(sendRequest.getCode())
                 .processModel(sendTaskModel)

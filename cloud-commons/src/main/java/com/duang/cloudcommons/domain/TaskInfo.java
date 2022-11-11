@@ -1,11 +1,11 @@
 package com.duang.cloudcommons.domain;
 
+import com.duang.cloudcommons.dto.model.ContentModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.swing.text.html.parser.ContentModel;
 import java.util.Set;
 
 /**

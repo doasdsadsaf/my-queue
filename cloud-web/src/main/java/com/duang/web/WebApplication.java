@@ -13,10 +13,10 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @Slf4j
-@MapperScan({"com.duang.web.mapper"})
+@MapperScan({"com.duang.web.mapper","com.duang.support.support.mapper"})
 @EnableDiscoveryClient
 @EnableFeignClients //开启Fegin
-@ComponentScan({"com.duang.support.support.pipeline"})
+@ComponentScan({"com.duang.support.support","com.duang.web","com.duang.cloud.api","com.duang.handler"})
 public class WebApplication {
 
     @Bean

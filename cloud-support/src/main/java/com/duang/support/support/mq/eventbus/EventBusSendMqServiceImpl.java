@@ -25,6 +25,7 @@ public class EventBusSendMqServiceImpl implements SendMqService {
 
     @Autowired
     private EventBusListener eventBusListener;
+
     @Value("${austin.business.topic.name}")
     private String sendTopic;
     @Value("${austin.business.recall.topic.name}")

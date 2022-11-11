@@ -5,9 +5,11 @@
 spring:
   profiles:
     active: dev
-  zipkin:
-    base-url: 124.223.2.193:9411/ #zipkin server的请求地址
-    discoveryClientEnabled: false #让nacos把它当成一个URL，而不要当做服务名
+#  zipkin:
+#    base-url: 124.223.2.193:9411/ #zipkin server的请求地址
+#    discoveryClientEnabled: false #让nacos把它当成一个URL，而不要当做服务名
+  main:
+    allow-bean-definition-overriding: true
   sleuth:
     sampler:
     probability: 1.0 #采样的百分比
@@ -24,6 +26,7 @@ spring:
         namespace: 5c2e414e-cdd2-4104-85d7-ad191b431fb8
         shared-dataids: all-cloud.yaml # 配置要引入的配置
         refreshable-dataids: all-cloud.yaml # 配置要实现动态配置刷新的配置
+        group: DEFAULT_GROUP
     sentinel:
       transport:
         port:
@@ -39,7 +42,25 @@ spring:
     virtual-host: /
     username: admin
     password: admin
-
+austin:
+  rabbitmq:
+    topic:
+      name: austinRabbit
+    exchange:
+      name: austin.point
+  business:
+    log:
+      topic:
+        name: austinTraceLog
+    topic:
+      name: austinBusiness
+    recall:
+      topic:
+        name: austinRecall
+    tagId:
+      value: com.java3y.austin.3y
+  mq:
+    pipeline: eventBus
 
 cloud-handler: # 调用的提供者的名称
   ribbon:
@@ -48,6 +69,18 @@ cloud-handler: # 调用的提供者的名称
 mybatis:
   type-aliases-package: com.duang.cloudcommons.entity
   mapper-locations: classpath:mapper/*.xml
+
+ok:
+  http:
+    connect-timeout: 30
+    keep-alive-duration: 300
+    max-idle-connections: 200
+    read-timeout: 30
+    write-timeout: 30
+
+
+
+
 
 
 #server:

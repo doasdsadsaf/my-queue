@@ -118,7 +118,7 @@
         </dependency>
         <dependency>
             <groupId>com.duang</groupId>
-            <artifactId>cloud-support</artifactId>
+            <artifactId>cloud-handler</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
