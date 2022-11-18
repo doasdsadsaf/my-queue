@@ -60,7 +60,7 @@ austin:
     tagId:
       value: com.java3y.austin.3y
   mq:
-    pipeline: eventBus
+    pipeline: rabbitMq
 
 cloud-handler: # 调用的提供者的名称
   ribbon:

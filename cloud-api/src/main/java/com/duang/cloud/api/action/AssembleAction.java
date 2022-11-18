@@ -40,17 +40,23 @@ public class AssembleAction implements BusinessProcess<SendTaskModel> {
     @Autowired
     private MessageTemplateMapper messageTemplateMapper;
 
+    /**
+     * 发送消息第二步
+     * @param context
+     */
     @Override
     public void process(ProcessContext<SendTaskModel> context) {
         SendTaskModel sendTaskModel = context.getProcessModel();
         Long messageTemplateId = sendTaskModel.getMessageTemplateId();
 
         try {
+            // 查询消息模板
             MessageTemplate messageTemplate = messageTemplateMapper.selectById(messageTemplateId);
             if (Objects.isNull(messageTemplate) || AustinConstant.TRUE.equals(messageTemplate.getIsDeleted())) {
                 context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
                 return;
             }
+            // 消息coed走不同的逻辑
             if (BusinessCode.COMMON_SEND.getCode().equals(context.getCode())) {
                 List<TaskInfo> taskInfos = assembleTaskInfo(sendTaskModel, messageTemplate);
                 sendTaskModel.setTaskInfo(taskInfos);

@@ -28,6 +28,10 @@ public class PreParamCheckAction implements BusinessProcess<SendTaskModel> {
      */
     private static final Integer BATCH_RECEIVER_SIZE = 100;
 
+    /**
+     * 发送消息第一步 校验
+     * @param context
+     */
     @Override
     public void process(ProcessContext<SendTaskModel> context) {
         SendTaskModel sendTaskModel = context.getProcessModel();

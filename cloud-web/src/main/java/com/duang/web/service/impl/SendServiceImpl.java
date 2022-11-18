@@ -27,7 +27,8 @@ public class SendServiceImpl implements SendService {
 
     /**
      * 通过 @Bean注解,项目启动时就按发送消息类型和撤销消息类型 把对应的实现子类注入到Map<Stirng,List>里去,再循环这个list
-     * 按顺序去执行他的每一个方法,这就是责任链
+     * 按顺序去执行他的每一个方法,这就是责任链 preParamCheckAction, assembleAction,
+     *                 afterParamCheckAction, sendMqAction
      * @param sendRequest
      * @return
      */
