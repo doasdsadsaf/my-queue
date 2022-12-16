@@ -26,6 +26,23 @@ public class SendController {
      * @return
      */
 //    @ApiOperation(value = "下发接口",notes = "多渠道多类型下发消息，目前支持邮件和短信，类型支持：验证码、通知类、营销类。")
+
+    /**
+     * {
+     *     "code": "send",
+     *     "messageParam": {   -- 消息参数
+     *         "receiver": "13788888888",   -- 发送人
+     *         "variables": {
+     *             "title": "yyyyyy",
+     *             "contentValue": "6666164180"
+     *         }
+     *     },
+     *     "messageTemplateId": 1,
+     *     "token": "1"
+     * }
+     * @param sendRequest
+     * @return
+     */
     @PostMapping("/send")
     public SendResponse send(@RequestBody SendRequest sendRequest) {
         return sendService.send(sendRequest);

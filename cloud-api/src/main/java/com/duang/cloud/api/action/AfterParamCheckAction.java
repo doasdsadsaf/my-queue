@@ -58,6 +58,7 @@ public class AfterParamCheckAction implements BusinessProcess<SendTaskModel> {
      * @param taskInfo
      */
     private void filterIllegalReceiver(List<TaskInfo> taskInfo) {
+        // 因为类型都是一样的 所以只需要取一个类型就可以了
         Integer idType = CollUtil.getFirst(taskInfo.iterator()).getIdType();
         filter(taskInfo, CHANNEL_REGEX_EXP.get(idType));
     }
@@ -73,13 +74,15 @@ public class AfterParamCheckAction implements BusinessProcess<SendTaskModel> {
         while (iterator.hasNext()) {
             TaskInfo task = iterator.next();
             Set<String> illegalPhone = task.getReceiver().stream()
+                    // 正则表达式 校验接收人是否正确 拿到不匹配额
                     .filter(phone -> !ReUtil.isMatch(regexExp, phone))
                     .collect(Collectors.toSet());
-
+         // 当不匹配的不为空时 删除
             if (CollUtil.isNotEmpty(illegalPhone)) {
                 task.getReceiver().removeAll(illegalPhone);
                 log.error("messageTemplateId:{} find illegal receiver!{}", task.getMessageTemplateId(), JSON.toJSONString(illegalPhone));
             }
+            // 如果接受人全空了 删除这条发送消息任务
             if (CollUtil.isEmpty(task.getReceiver())) {
                 iterator.remove();
             }

@@ -56,7 +56,7 @@ public class AssembleAction implements BusinessProcess<SendTaskModel> {
                 context.setNeedBreak(true).setResponse(BasicResultVO.fail(RespStatusEnum.TEMPLATE_NOT_FOUND));
                 return;
             }
-            // 消息coed走不同的逻辑
+            // 消息code走不同的逻辑
             if (BusinessCode.COMMON_SEND.getCode().equals(context.getCode())) {
                 List<TaskInfo> taskInfos = assembleTaskInfo(sendTaskModel, messageTemplate);
                 sendTaskModel.setTaskInfo(taskInfos);
@@ -73,13 +73,13 @@ public class AssembleAction implements BusinessProcess<SendTaskModel> {
     /**
      * 组装 TaskInfo 任务消息
      *
-     * @param sendTaskModel
-     * @param messageTemplate
+     * @param sendTaskModel  发送信息对象
+     * @param messageTemplate  消息模板对象
      */
     private List<TaskInfo> assembleTaskInfo(SendTaskModel sendTaskModel, MessageTemplate messageTemplate) {
         List<MessageParam> messageParamList = sendTaskModel.getMessageParamList();
         List<TaskInfo> taskInfoList = new ArrayList<>();
-
+        // 遍历每个接收者 准备消息
         for (MessageParam messageParam : messageParamList) {
 
             TaskInfo taskInfo = TaskInfo.builder()
@@ -114,15 +114,18 @@ public class AssembleAction implements BusinessProcess<SendTaskModel> {
 
         // 得到模板的 msgContent 和 入参
         Map<String, String> variables = messageParam.getVariables();
+        // 拿到模板里的消息内容
         JSONObject jsonObject = JSON.parseObject(messageTemplate.getMsgContent());
 
 
         // 通过反射 组装出 contentModel
+        // 获得类里对象
         Field[] fields = ReflectUtil.getFields(contentModelClass);
+        // 获得对象
         ContentModel contentModel = (ContentModel) ReflectUtil.newInstance(contentModelClass);
         for (Field field : fields) {
             String originValue = jsonObject.getString(field.getName());
-
+            // 当字段名跟json里的key一样 替换占位符
             if (StrUtil.isNotBlank(originValue)) {
                 String resultValue = ContentHolderUtil.replacePlaceHolder(originValue, variables);
                 Object resultObj = JSONUtil.isJsonObj(resultValue) ? JSONUtil.toBean(resultValue, field.getType()) : resultValue;

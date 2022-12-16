@@ -47,7 +47,7 @@ public class ProcessController {
         }
 
         /**
-         * 遍历流程节点
+         * 遍历流程节点 TODO 流程节点什么时候初始化的?  pipeline流程控制器 bean启动初始化
          */
         List<BusinessProcess> processList = templateConfig.get(context.getCode()).getProcessList();
         for (BusinessProcess businessProcess : processList) {

@@ -27,8 +27,8 @@ public class SendMqAction implements BusinessProcess<SendTaskModel> {
 
     @Autowired
     private SendMqService sendMqService;
-
-    @Value("${austin.business.topic.name}")
+  // 这个配置就是发送消息用什么方式发 单机 还是rabbitmq
+    @Value("${austin.rabbitmq.topic.name}")
     private String sendMessageTopic;
 
     @Value("${austin.business.recall.topic.name}")
