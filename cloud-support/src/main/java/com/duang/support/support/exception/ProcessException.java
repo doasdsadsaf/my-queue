@@ -4,7 +4,8 @@ import com.duang.cloudcommons.enums.RespStatusEnum;
 import com.duang.support.support.pipeline.ProcessContext;
 
 /**
- * @author SamLee
+ * 处理流程异常
+ * @author dw
  * @since 2022-03-29
  */
 public class ProcessException extends RuntimeException {

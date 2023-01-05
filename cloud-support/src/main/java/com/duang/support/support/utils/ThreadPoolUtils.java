@@ -2,6 +2,7 @@ package com.duang.support.support.utils;
 
 import com.duang.support.support.config.ThreadPoolExecutorShutdownDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,12 +19,11 @@ public class ThreadPoolUtils {
     private static final String SOURCE_NAME = "austin";
 
 
-//    /**
-//     * 1. 将当前线程池 加入到 动态线程池内
-//     * 2. 注册 线程池 被Spring管理，优雅关闭
-//     */
-//    public void register(DtpExecutor dtpExecutor) {
-//        DtpRegistry.register(dtpExecutor, SOURCE_NAME);
-//        shutdownDefinition.registryExecutor(dtpExecutor);
-//    }
+    /**
+     * 1. 将当前线程池 加入到 动态线程池内
+     * 2. 注册 线程池 被Spring管理，优雅关闭
+     */
+    public void register(ThreadPoolTaskExecutor executor) {
+   //     shutdownDefinition.registryExecutor(executor);
+    }
 }

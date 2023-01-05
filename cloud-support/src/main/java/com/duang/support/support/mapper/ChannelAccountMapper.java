@@ -4,6 +4,7 @@ package com.duang.support.support.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.duang.support.support.domain.ChannelAccount;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface ChannelAccountMapper extends BaseMapper<ChannelAccount> {
      * @param channelType 渠道值
      * @return
      */
-    List<ChannelAccount> findAllByIsDeletedEqualsAndSendChannelEquals(Integer deleted, Integer channelType);
+    List<ChannelAccount> findAllByIsDeletedEqualsAndSendChannelEquals(@Param("deleted") Integer deleted,@Param("channelType") Integer channelType);
 
 
     /**

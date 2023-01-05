@@ -45,9 +45,9 @@ spring:
 austin:
   rabbitmq:
     topic:
-      name: austinRabbit
+      name: austin_queue
     exchange:
-      name: austin.point
+      name: austin_topic_exchange
   business:
     log:
       topic:

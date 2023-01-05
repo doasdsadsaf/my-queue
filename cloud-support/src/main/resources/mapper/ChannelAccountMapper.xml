@@ -2,8 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.duang.support.support.mapper.ChannelAccountMapper">
 
-    <select id="get" resultType="com.duang.support.support.domain.ChannelAccount">
-        SELECT * FROM user WHERE id = #{id}
+
+    <select id="findAllByIsDeletedEqualsAndSendChannelEquals"
+            resultType="com.duang.support.support.domain.ChannelAccount">
+    SELECT * FROM channel_account WHERE is_deleted = #{deleted} AND send_channel = #{channelType}
+
+    </select>
+
+
+    <select id="countByIsDeletedEquals" resultType="java.lang.Long">
+        SELECT COUNT(id) FROM channel_account WHERE deleted = #{deleted}
     </select>
 
 </mapper>

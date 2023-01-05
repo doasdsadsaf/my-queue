@@ -1,6 +1,5 @@
 package com.duang.web.controller;
 
-import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.duang.cloudcommons.entity.MessageResponse;
 import com.duang.cloudcommons.entity.Order;
 import com.duang.cloudcommons.entity.User;
@@ -61,7 +60,7 @@ public class QueueController {
 
 
     @GetMapping("sendQueue")
-    public String  sendQueue(@RequestParam("news")String news){
+    public String  sendQueue(@RequestParam("news") String news){
 
         /**
          * 发送消息

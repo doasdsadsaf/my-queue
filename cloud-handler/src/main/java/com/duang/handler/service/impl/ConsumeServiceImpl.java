@@ -37,11 +37,18 @@ public class ConsumeServiceImpl implements ConsumeService {
     @Autowired
     private HandlerHolder handlerHolder;
 
+    /**
+     * 接收消息,消费MQ 发送消息
+     * @param taskInfoLists
+     */
     @Override
     public void consume2Send(List<TaskInfo> taskInfoLists) {
         String topicGroupId = GroupIdMappingUtils.getGroupIdByTaskInfo(CollUtil.getFirst(taskInfoLists.iterator()));
         for (TaskInfo taskInfo : taskInfoLists) {
-            logUtils.print(LogParam.builder().bizType(LOG_BIZ_TYPE).object(taskInfo).build(), AnchorInfo.builder().ids(taskInfo.getReceiver()).businessId(taskInfo.getBusinessId()).state(AnchorState.RECEIVE.getCode()).build());
+            // 记录当前对象信息和打点信息 为什么变成了发送MQ
+            logUtils.print(LogParam.builder().bizType(LOG_BIZ_TYPE).object(taskInfo).build(),
+                    AnchorInfo.builder().ids(taskInfo.getReceiver()).businessId(taskInfo.getBusinessId())
+                            .state(AnchorState.RECEIVE.getCode()).build());
             Task task = context.getBean(Task.class).setTaskInfo(taskInfo);
             taskPendingHolder.route(topicGroupId).execute(task);
         }
