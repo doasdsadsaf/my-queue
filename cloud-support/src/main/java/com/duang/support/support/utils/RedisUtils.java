@@ -1,6 +1,7 @@
 package com.duang.support.support.utils;
 
 import cn.hutool.core.collection.CollUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.duang.cloudcommons.constant.AustinConstant;
 import com.google.common.base.Throwables;
 import lombok.extern.slf4j.Slf4j;
@@ -180,4 +181,23 @@ public class RedisUtils {
     }
 
 
+    /**
+     * set add
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public void set(String key, Object obj,long date) {
+        try {
+                redisTemplate.opsForValue().set(key, JSONObject.toJSONString(obj),date);
+
+        } catch (Exception e) {
+            log.error("RedisUtils#lRange fail! e:{}", Throwables.getStackTraceAsString(e));
+        }
+    }
+
+    public String get(String key) {
+       return redisTemplate.opsForValue().get(key);
+    }
 }

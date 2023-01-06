@@ -34,7 +34,7 @@ public class ShieldServiceImpl implements ShieldService {
 
     @Override
     public void shield(TaskInfo taskInfo) {
-
+        // 如果夜间不屏蔽 直接返回
         if (ShieldType.NIGHT_NO_SHIELD.getCode().equals(taskInfo.getShieldType())) {
             return;
         }
@@ -43,7 +43,9 @@ public class ShieldServiceImpl implements ShieldService {
          * example:当消息下发至austin平台时，已经是凌晨1点，业务希望此类消息在次日的早上9点推送
          * (配合 分布式任务定时任务框架搞掂)
          */
+        // 判断当前时间是否小于8点,认为是凌晨(夜晚)
         if (isNight()) {
+            // TODO 夜间屏蔽就不发了???
             if (ShieldType.NIGHT_SHIELD.getCode().equals(taskInfo.getShieldType())) {
                 logUtils.print(AnchorInfo.builder().state(AnchorState.NIGHT_SHIELD.getCode())
                         .businessId(taskInfo.getBusinessId()).ids(taskInfo.getReceiver()).build());

@@ -25,6 +25,7 @@ public class WebApplication {
         return new RestTemplate();
     }
 
+
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
         log.info("web启动成功");

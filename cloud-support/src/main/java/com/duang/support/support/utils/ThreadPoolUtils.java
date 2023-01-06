@@ -24,6 +24,6 @@ public class ThreadPoolUtils {
      * 2. 注册 线程池 被Spring管理，优雅关闭
      */
     public void register(ThreadPoolTaskExecutor executor) {
-   //     shutdownDefinition.registryExecutor(executor);
+        shutdownDefinition.registryExecutor(executor);
     }
 }

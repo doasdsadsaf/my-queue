@@ -42,6 +42,10 @@ spring:
     virtual-host: /
     username: admin
     password: admin
+  redis:
+    host: 124.223.2.193
+#    password: 000415
+    port: 6379
 austin:
   rabbitmq:
     topic:

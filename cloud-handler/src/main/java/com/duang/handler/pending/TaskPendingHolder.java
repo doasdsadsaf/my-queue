@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 
 
 /**
@@ -25,7 +24,7 @@ public class TaskPendingHolder {
     @Autowired
     private ThreadPoolUtils threadPoolUtils;
 
-    private Map<String, ExecutorService> taskPendingHolder = new HashMap<>(32);
+    private Map<String, ThreadPoolTaskExecutor> taskPendingHolder = new HashMap<>(32);
 
     /**
      * 获取得到所有的groupId
@@ -46,7 +45,7 @@ public class TaskPendingHolder {
             ThreadPoolTaskExecutor executor = HandlerThreadPoolConfig.getExecutor(groupId);
             threadPoolUtils.register(executor);
 
-          //  taskPendingHolder.put(groupId, executor);
+            taskPendingHolder.put(groupId, executor);
         }
     }
 
@@ -56,7 +55,7 @@ public class TaskPendingHolder {
      * @param groupId
      * @return
      */
-    public ExecutorService route(String groupId) {
+    public ThreadPoolTaskExecutor route(String groupId) {
         return taskPendingHolder.get(groupId);
     }
 

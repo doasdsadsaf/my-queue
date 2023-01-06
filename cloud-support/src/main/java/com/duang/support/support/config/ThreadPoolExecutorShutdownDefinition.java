@@ -3,13 +3,13 @@ package com.duang.support.support.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ThreadPoolExecutorShutdownDefinition implements ApplicationListener<ContextClosedEvent> {
 
-    private final List<ExecutorService> POOLS = Collections.synchronizedList(new ArrayList<>(12));
+    private final List<ThreadPoolTaskExecutor> POOLS = Collections.synchronizedList(new ArrayList<>(12));
 
     /**
      * 线程中的任务在接收到应用关闭信号量后最多等待多久就强制终止，其实就是给剩余任务预留的时间， 到时间后线程池必须销毁
@@ -34,7 +34,7 @@ public class ThreadPoolExecutorShutdownDefinition implements ApplicationListener
     private final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
 
 
-    public void registryExecutor(ExecutorService executor) {
+    public void registryExecutor(ThreadPoolTaskExecutor executor) {
         POOLS.add(executor);
     }
 
@@ -49,20 +49,20 @@ public class ThreadPoolExecutorShutdownDefinition implements ApplicationListener
         if (CollectionUtils.isEmpty(POOLS)) {
             return;
         }
-        for (ExecutorService pool : POOLS) {
+        for (ThreadPoolTaskExecutor pool : POOLS) {
             pool.shutdown();
-            try {
-                if (!pool.awaitTermination(AWAIT_TERMINATION, TIME_UNIT)) {
-                    if (log.isWarnEnabled()) {
-                        log.warn("Timed out while waiting for executor [{}] to terminate", pool);
-                    }
-                }
-            } catch (InterruptedException ex) {
-                if (log.isWarnEnabled()) {
-                    log.warn("Timed out while waiting for executor [{}] to terminate", pool);
-                }
-                Thread.currentThread().interrupt();
-            }
+//            try {
+//                if (!pool.awaitTermination(AWAIT_TERMINATION, TIME_UNIT)) {
+//                    if (log.isWarnEnabled()) {
+//                        log.warn("Timed out while waiting for executor [{}] to terminate", pool);
+//                    }
+//                }
+//            } catch (InterruptedException ex) {
+//                if (log.isWarnEnabled()) {
+//                    log.warn("Timed out while waiting for executor [{}] to terminate", pool);
+//                }
+//                Thread.currentThread().interrupt();
+//            }
         }
     }
 }

@@ -2,8 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.duang.support.support.mapper.MessageTemplateMapper">
 
-    <select id="get" resultType="com.duang.support.support.domain.MessageTemplate">
-        SELECT * FROM user WHERE id = #{id}
+
+    <select id="findAllByList" resultType="com.duang.support.support.domain.MessageTemplate">
+        SELECT * FROM message_template WHERE is_deleted = 0
+    </select>
+
+    <select id="countByIsDeletedEquals" resultType="java.lang.Long">
+
     </select>
 
 </mapper>

@@ -97,5 +97,9 @@ public class SendAccountConstant {
     public static final Integer TENCENT_SMS_CODE = 10;
     public static final Integer YUN_PIAN_SMS_CODE = 20;
 
-
+    /**
+     * redis 消息模板 key
+     */
+    public static final String MESSAGE_TEMPLATE= "MESSAGE:TEMPLATE:";
+    ;
 }

@@ -3,7 +3,10 @@ package com.duang.handler.pending;
 
 import cn.hutool.core.collection.CollUtil;
 import com.duang.cloudcommons.domain.TaskInfo;
+import com.duang.handler.deduplication.DeduplicationRuleService;
+import com.duang.handler.discard.DiscardMessageService;
 import com.duang.handler.handler.HandlerHolder;
+import com.duang.handler.shield.ShieldService;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -31,14 +34,14 @@ public class Task implements Runnable {
     @Autowired
     private HandlerHolder handlerHolder;
 
-  /*  @Autowired
+    @Autowired
     private DeduplicationRuleService deduplicationRuleService;
 
     @Autowired
     private DiscardMessageService discardMessageService;
 
     @Autowired
-    private ShieldService shieldService;*/
+    private ShieldService shieldService;
 
     private TaskInfo taskInfo;
 
@@ -46,8 +49,8 @@ public class Task implements Runnable {
     @Override
     public void run() {
 
-     /*   // 0. 丢弃消息
-        if (discardMessageService.isDiscard(taskInfo)) {
+        // 0. 丢弃消息
+        if (!discardMessageService.isDiscard(taskInfo)) {
             return;
         }
         // 1. 屏蔽消息
@@ -56,7 +59,7 @@ public class Task implements Runnable {
         // 2.平台通用去重
         if (CollUtil.isNotEmpty(taskInfo.getReceiver())) {
             deduplicationRuleService.duplication(taskInfo);
-        }*/
+        }
 
         // 3. 真正发送消息
         if (CollUtil.isNotEmpty(taskInfo.getReceiver())) {
