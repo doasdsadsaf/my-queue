@@ -4,7 +4,7 @@ import com.duang.cloudcommons.enums.RespStatusEnum;
 import com.duang.support.support.pipeline.ProcessContext;
 
 /**
- * 处理流程异常
+ * 处理流程异常  错误获取
  * @author dw
  * @since 2022-03-29
  */

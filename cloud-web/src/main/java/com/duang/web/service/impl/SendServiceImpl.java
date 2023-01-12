@@ -40,7 +40,7 @@ public class SendServiceImpl implements SendService {
                 .messageTemplateId(sendRequest.getMessageTemplateId())
                 .messageParamList(Collections.singletonList(sendRequest.getMessageParam()))
                 .build();
-        // 把消息参数放到责任链上下文里
+        // 把消息参数放到责任链上下文里  执行什么业务类型 发送内容模板内容
         ProcessContext context = ProcessContext.builder()
                 .code(sendRequest.getCode())
                 .processModel(sendTaskModel)
